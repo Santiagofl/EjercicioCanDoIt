@@ -5,6 +5,14 @@ public class DTOClimaApiResponse {
 
     private String tempDesc;
 
+    public DTOClimaApiResponse(String tempDesc) {
+        this.tempDesc = tempDesc;
+    }
+
+    public DTOClimaApiResponse(){
+
+    }
+
     public String getTempDesc() {
         return tempDesc;
     }

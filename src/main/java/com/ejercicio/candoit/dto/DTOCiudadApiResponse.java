@@ -8,6 +8,18 @@ public class DTOCiudadApiResponse {
     private String province;
     private DTOClimaApiResponse weather;
 
+    public DTOCiudadApiResponse(String _id, Integer int_number, String name, String province, DTOClimaApiResponse weather) {
+        this._id = _id;
+        this.int_number = int_number;
+        this.name = name;
+        this.province = province;
+        this.weather = weather;
+    }
+
+    public DTOCiudadApiResponse(){
+
+    }
+
     public String get_id() {
         return _id;
     }

@@ -12,12 +12,12 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-public class PantallaController {
+public class CiudadController {
 
     private CiudadService ciudadService;
 
     @Autowired
-    public PantallaController(CiudadService ciudadService) {
+    public CiudadController(CiudadService ciudadService) {
         this.ciudadService = ciudadService;
     }
 

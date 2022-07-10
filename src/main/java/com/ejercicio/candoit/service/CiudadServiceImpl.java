@@ -32,24 +32,28 @@ public class CiudadServiceImpl implements CiudadService {
          ciudadRepository.saveAll(ciudadList);
     }
 
-    @Scheduled(cron = "0 0/5 * * * *")
+
     @Override
-    public void guardarResponseApi() {
-        List<Ciudad> listado = ciudadRepository.findAll();
+    public Boolean guardarResponseApi() {
+        List<Ciudad> listado = this.obtenerDatos();
         if(listado.isEmpty()){
             List<DTOCiudadApiResponse> datosApiCiudad = forecastApiConsumptionService.getDatosApiCiudad();
             List<Ciudad> ciudads = new ArrayList<>();
-            datosApiCiudad.forEach( response ->{
+            for(DTOCiudadApiResponse response: datosApiCiudad) {
                 ciudads.add(new Ciudad(null,response.getInt_number(),response.getName(), response.getProvince(),
                         response.getWeather().getTempDesc()));
-            });
+            }
             this.guardarVarios(ciudads);
+            return true;
         }else{
-            this.updateApi(listado);
+            return false;
         }
     }
+    @Scheduled(cron = "0 0/5 * * * *")
     @Override
-    public void updateApi(List<Ciudad> ciudades) {
+    public void updateApi() {
+        List<Ciudad> ciudades = this.obtenerDatos();
+        if(!this.guardarResponseApi()){
             List<DTOCiudadApiResponse> datosApiCiudad = forecastApiConsumptionService.getDatosApiCiudad();
             for (Ciudad ciudad:ciudades) {
                 DTOCiudadApiResponse responseSearch = getDTO(ciudad.getNumero(),datosApiCiudad);
@@ -58,6 +62,9 @@ public class CiudadServiceImpl implements CiudadService {
                 ciudad.setTemperatura(responseSearch.getWeather().getTempDesc());
                 ciudadRepository.save(ciudad);
             }
+        }else{
+           this.guardarResponseApi();
+        }
     }
 
     @Override

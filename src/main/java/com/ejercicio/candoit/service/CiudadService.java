@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface CiudadService {
     void guardarVarios(List<Ciudad> ciudadList);
-    void guardarResponseApi();
-    void updateApi(List<Ciudad> ciudades);
+    Boolean guardarResponseApi();
+    void updateApi();
     List<Ciudad>obtenerDatos();
 
 }

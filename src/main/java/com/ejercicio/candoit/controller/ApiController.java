@@ -30,8 +30,13 @@ public class ApiController {
         return response;
     }
     @RequestMapping(path="/alta-masiva", method = RequestMethod.POST)
-    public void guardarReponseApi() {
-         ciudadService.guardarResponseApi();
+    public Boolean guardarReponseApi() {
+         return ciudadService.guardarResponseApi();
+    }
+
+    @RequestMapping(path="/update", method = RequestMethod.POST)
+    public void update() {
+         ciudadService.updateApi();
     }
 
 }
